@@ -4,6 +4,8 @@ Assumption:
 Here we assume that the file has the first line as the first question, 
 and it ends with a "\n" character. 
 The whole file ends with the last answer not "\n".
+Each question/answer has a "\t" tab character between number and content.
+Questions are not always ending with question mark.
 """
 
 def export_variables(filepath):
