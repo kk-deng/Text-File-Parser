@@ -1,5 +1,13 @@
-def export_variables(filepath):
+"""
+Assumption:
 
+Here we assume that the file has the first line as the first question, 
+and it ends with a "\n" character. 
+The whole file ends with the last answer not "\n".
+"""
+
+def export_variables(filepath):
+    # Define lists of variables for storeage
     CounterQuestion = 0
     Questions = []
     QuestionNumbers = []
