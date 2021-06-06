@@ -27,3 +27,7 @@ Given a plain text file as above, this Python script reads all the questions and
 ## Assumption
 
 Assuming each number is followed by a tab character ("\t"). And there is a next line ("\n") before and after each question.
+
+## Output Screenshot
+
+<img src="https://github.com/kk-deng/Text-File-Parser/blob/main/Screenshots/variables.png">
