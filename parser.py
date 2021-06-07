@@ -37,8 +37,8 @@ def export_variables(filepath):
             if CounterQuestion == 0:
                 try: 
                     # Question line, remove unnecessary characters at the front and the end
-                    QuestionNumbers.append(line.split("\t")[0].split(".")[0])
-                    Questions.append(line.split("\t")[1].strip())
+                    QuestionNumbers.append(get_number(line))
+                    Questions.append(get_words(line))
 
                 except:
                     pass
@@ -58,15 +58,15 @@ def export_variables(filepath):
 
                 elif index == (len(lines)-1):
                     # When reaching the end of the file, append the last element
-                    AnswerNumTemp.append(line.split("\t")[0].split(".")[0])
-                    AnswerTemp.append(line.split("\t")[1].strip())
+                    AnswerNumTemp.append(get_number(line))
+                    AnswerTemp.append(get_words(line))
                     AnswerNumbers.append(list(AnswerNumTemp))
                     Answers.append(list(AnswerTemp))
                 
                 try:
                     # Append the answers for each question
-                    AnswerNumTemp.append(line.split("\t")[0].split(".")[0])
-                    AnswerTemp.append(line.split("\t")[1].strip())
+                    AnswerNumTemp.append(get_number(line))
+                    AnswerTemp.append(get_words(line))
                 except:
                     pass
             
