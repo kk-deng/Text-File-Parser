@@ -1,3 +1,11 @@
+def get_number(line):
+    # Get the number before ".\t" for questions and answers
+    return line.split("\t")[0].split(".")[0]
+
+def get_words(line):
+    # Get the content after ".\t" for questions and answers
+    return line.split("\t")[1].strip()
+
 def export_variables(filepath):
     """
     Assumption:
