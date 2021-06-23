@@ -1,6 +1,8 @@
 # Text-File-Parser
 A Python parser that takes the content of a text file and then reads into variables.
 
+<img scr="https://github.com/kk-deng/Text-File-Parser/blob/main/Screenshots/Sample-Text-FIle.jpeg">
+
 ## Input.text File
 
 ```
