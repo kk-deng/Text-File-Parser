@@ -13,14 +13,10 @@ def get_words(line):
 
 def export_tuples(filepath) -> tuple:
     # Define lists of variables for storeage
-    CounterQuestion = 0
     Questions = []
     QuestionNumbers = []
     AnswerNumbers = []
     Answers = []
-    # Temp lists
-    AnswerNumTemp = []
-    AnswerTemp = []
 
     EndOfQuestion = False
     # Generator to read rows in a text file
@@ -36,10 +32,11 @@ def export_tuples(filepath) -> tuple:
             else:
                 AnswerNumbers.append(element[0])
                 Answers.append(element[1].strip())
-        elif len(element) == 0:
+        elif len(element) == 1:
             # If a ' \n' is shown, it means the end of question
-            EndOfQuestion = True
-
+            EndOfQuestion = not EndOfQuestion
+            
+    print(Questions)
 
 def export_variables(filepath):
     """
