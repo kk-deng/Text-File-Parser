@@ -1,3 +1,5 @@
+from itertools import groupby
+
 def txt_generator(filepath):
     # A generator to read rows in a text file
     for row in open(filepath):
@@ -17,6 +19,9 @@ def export_tuples(filepath) -> tuple:
     QuestionNumbers = []
     AnswerNumbers = []
     Answers = []
+    # Temp lists
+    AnswerNumTemp = []
+    AnswerTemp = []
 
     EndOfQuestion = False
     # Generator to read rows in a text file
@@ -30,13 +35,26 @@ def export_tuples(filepath) -> tuple:
                 QuestionNumbers.append(element[0])
                 Questions.append(element[1].strip())
             else:
-                AnswerNumbers.append(element[0])
-                Answers.append(element[1].strip())
+                AnswerNumTemp.append(element[0])
+                AnswerTemp.append(element[1].strip())
         elif len(element) == 1:
-            # If a ' \n' is shown, it means the end of question
+            # If it is the end of one question, append everything
+            if EndOfQuestion == True:
+                AnswerNumbers.append(AnswerNumTemp)
+                Answers.append(AnswerTemp)
+                # Reset the lists
+                AnswerNumTemp = []
+                AnswerTemp = []
+
+            #  If a ' \n' is shown, it means the end of question
             EndOfQuestion = not EndOfQuestion
-            
-    print(Questions)
+
+    # Once the last row reaches, append the last sublists to the lists
+    AnswerNumbers.append(AnswerNumTemp)
+    Answers.append(AnswerTemp)
+
+    # Return all variables        
+    return Questions, QuestionNumbers, Answers, AnswerNumbers
 
 def export_variables(filepath):
     """
@@ -110,11 +128,11 @@ def export_variables(filepath):
 
                 
 if __name__ == "__main__":
-    export_tuples("input.txt")
+    Questions, QuestionNumbers, Answers, AnswerNumbers = export_tuples("input.txt")
     # Questions, QuestionNumbers, Answers, AnswerNumbers = export_variables("input.txt")
-    # print(Questions)
-    # print(QuestionNumbers)
-    # print(Answers)
-    # print(AnswerNumbers)
+    print(Questions)
+    print(QuestionNumbers)
+    print(Answers)
+    print(AnswerNumbers)
 
         
