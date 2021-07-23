@@ -14,14 +14,8 @@ def get_words(line):
     return line.split("\t")[1].strip()
 
 def export_tuples(filepath) -> tuple:
-    # Define lists of variables for storeage
-    Questions = []
-    QuestionNumbers = []
-    AnswerNumbers = []
-    Answers = []
-    # Temp lists
-    AnswerNumTemp = []
-    AnswerTemp = []
+    # Define lists of variables for storage
+    Questions, QuestionNumbers, AnswerNumbers, Answers, AnswerNumTemp, AnswerTemp = ([] for i in range(6))
 
     EndOfQuestion = False
     # Generator to read rows in a text file
