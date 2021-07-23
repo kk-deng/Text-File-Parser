@@ -1,3 +1,8 @@
+def txt_generator(filepath):
+    # A generator to read rows in a text file
+    for row in open(filepath):
+        yield row
+
 def get_number(line):
     # Get the number before ".\t" for questions and answers
     return line.split("\t")[0].split(".")[0]
@@ -5,6 +10,18 @@ def get_number(line):
 def get_words(line):
     # Get the content after ".\t" for questions and answers
     return line.split("\t")[1].strip()
+
+def export_tuples(filepath) -> Tuple[Questions, ...]:
+    # Define lists of variables for storeage
+    CounterQuestion = 0
+    Questions = []
+    QuestionNumbers = []
+    AnswerNumbers = []
+    Answers = []
+    # Temp lists
+    AnswerNumTemp = []
+    AnswerTemp = []    
+
 
 def export_variables(filepath):
     """
