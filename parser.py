@@ -11,7 +11,7 @@ def get_words(line):
     # Get the content after ".\t" for questions and answers
     return line.split("\t")[1].strip()
 
-def export_tuples(filepath) -> Tuple[Questions, ...]:
+def export_tuples(filepath) -> tuple:
     # Define lists of variables for storeage
     CounterQuestion = 0
     Questions = []
@@ -20,7 +20,25 @@ def export_tuples(filepath) -> Tuple[Questions, ...]:
     Answers = []
     # Temp lists
     AnswerNumTemp = []
-    AnswerTemp = []    
+    AnswerTemp = []
+
+    EndOfQuestion = False
+    # Generator to read rows in a text file
+    lines = (line for line in open(filepath))
+    lists = (l.split(".\t") for l in lines)
+    for element in lists:
+        if len(element) > 1:
+            # Check if it's the question section
+            if EndOfQuestion == False:
+                # Append the question number to list
+                QuestionNumbers.append(element[0])
+                Questions.append(element[1].strip())
+            else:
+                AnswerNumbers.append(element[0])
+                Answers.append(element[1].strip())
+        elif len(element) == 0:
+            # If a ' \n' is shown, it means the end of question
+            EndOfQuestion = True
 
 
 def export_variables(filepath):
@@ -95,10 +113,11 @@ def export_variables(filepath):
 
                 
 if __name__ == "__main__":
-    Questions, QuestionNumbers, Answers, AnswerNumbers = export_variables("input.txt")
-    print(Questions)
-    print(QuestionNumbers)
-    print(Answers)
-    print(AnswerNumbers)
+    export_tuples("input.txt")
+    # Questions, QuestionNumbers, Answers, AnswerNumbers = export_variables("input.txt")
+    # print(Questions)
+    # print(QuestionNumbers)
+    # print(Answers)
+    # print(AnswerNumbers)
 
         
