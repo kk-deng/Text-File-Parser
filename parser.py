@@ -1,18 +1,3 @@
-from itertools import groupby
-
-def txt_generator(filepath):
-    # A generator to read rows in a text file
-    for row in open(filepath):
-        yield row
-
-def get_number(line):
-    # Get the number before ".\t" for questions and answers
-    return line.split("\t")[0].split(".")[0]
-
-def get_words(line):
-    # Get the content after ".\t" for questions and answers
-    return line.split("\t")[1].strip()
-
 def export_tuples(filepath) -> tuple:
     # Define lists of variables for storage
     Questions, QuestionNumbers, AnswerNumbers, Answers, AnswerNumTemp, AnswerTemp = ([] for i in range(6))
@@ -20,7 +5,11 @@ def export_tuples(filepath) -> tuple:
     EndOfQuestion = False
     # Generator to read rows in a text file
     lines = (line for line in open(filepath))
+
+    # Another generator to read each row and split the numbers and words
     lists = (l.split(".\t") for l in lines)
+
+    # For each line, check the list length, >1 means questions/answers
     for element in lists:
         if len(element) > 1:
             # Check if it's the question section
@@ -31,14 +20,14 @@ def export_tuples(filepath) -> tuple:
             else:
                 AnswerNumTemp.append(element[0])
                 AnswerTemp.append(element[1].strip())
+
         elif len(element) == 1:
             # If it is the end of one question, append everything
             if EndOfQuestion == True:
                 AnswerNumbers.append(AnswerNumTemp)
                 Answers.append(AnswerTemp)
                 # Reset the lists
-                AnswerNumTemp = []
-                AnswerTemp = []
+                AnswerNumTemp, AnswerTemp = [], []
 
             #  If a ' \n' is shown, it means the end of question
             EndOfQuestion = not EndOfQuestion
