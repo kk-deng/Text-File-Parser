@@ -1,6 +1,8 @@
 def export_tuples(filepath) -> tuple:
     # Define lists of variables for storage
-    Questions, QuestionNumbers, AnswerNumbers, Answers, AnswerNumTemp, AnswerTemp = ([] for i in range(6))
+    Questions, QuestionNumbers, AnswerNumbers, Answers, AnswerNumTemp, AnswerTemp = (
+        [] for i in range(6)
+    )
 
     EndOfQuestion = False
     # Generator to read rows in a text file
@@ -36,20 +38,21 @@ def export_tuples(filepath) -> tuple:
     AnswerNumbers.append(AnswerNumTemp)
     Answers.append(AnswerTemp)
 
-    # Return all variables        
+    # Return all variables
     return Questions, QuestionNumbers, Answers, AnswerNumbers
+
 
 def export_variables(filepath):
     """
     Assumption:
 
-    Here we assume that the file has the first line as the first question, 
-    and it ends with a "\n" character. 
+    Here we assume that the file has the first line as the first question,
+    and it ends with a "\n" character.
     The whole file ends with the last answer not "\n".
     Each question/answer has a "\t" tab character between number and content.
     Questions are not always ending with question mark.
     """
-    
+
     # Define lists of variables for storeage
     CounterQuestion = 0
     Questions = []
@@ -68,7 +71,7 @@ def export_variables(filepath):
         for index, line in enumerate(lines):
 
             if CounterQuestion == 0:
-                try: 
+                try:
                     # Question line, remove unnecessary characters at the front and the end
                     QuestionNumbers.append(get_number(line))
                     Questions.append(get_words(line))
@@ -77,7 +80,7 @@ def export_variables(filepath):
                     pass
 
             elif CounterQuestion > 1:
-                
+
                 if line == " \n":
                     # If reach the end of each question, reset the counter and append lists
                     CounterQuestion = 0
@@ -89,27 +92,27 @@ def export_variables(filepath):
                     AnswerTemp = []
                     continue
 
-                elif index == (len(lines)-1):
+                elif index == (len(lines) - 1):
                     # When reaching the end of the file, append the last element
                     AnswerNumTemp.append(get_number(line))
                     AnswerTemp.append(get_words(line))
                     AnswerNumbers.append(list(AnswerNumTemp))
                     Answers.append(list(AnswerTemp))
-                
+
                 try:
                     # Append the answers for each question
                     AnswerNumTemp.append(get_number(line))
                     AnswerTemp.append(get_words(line))
                 except:
                     pass
-            
+
             # Counter for each question
             CounterQuestion += 1
-            
-        # Return all variables        
+
+        # Return all variables
         return Questions, QuestionNumbers, Answers, AnswerNumbers
 
-                
+
 if __name__ == "__main__":
     Questions, QuestionNumbers, Answers, AnswerNumbers = export_tuples("input.txt")
     # Questions, QuestionNumbers, Answers, AnswerNumbers = export_variables("input.txt")
@@ -117,5 +120,3 @@ if __name__ == "__main__":
     print(QuestionNumbers)
     print(Answers)
     print(AnswerNumbers)
-
-        
